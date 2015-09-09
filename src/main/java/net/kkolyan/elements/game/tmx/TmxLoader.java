@@ -4,6 +4,7 @@ import net.kkolyan.elements.engine.core.Locatable;
 import net.kkolyan.elements.engine.core.definition.sdl.SdlLoader;
 import net.kkolyan.elements.engine.core.physics.Border;
 import net.kkolyan.elements.engine.core.templates.Object2d;
+import net.kkolyan.elements.engine.core.templates.Ray;
 import net.kkolyan.elements.engine.core.templates.Sprite;
 import net.kkolyan.elements.engine.core.templates.Vector;
 import net.kkolyan.elements.engine.utils.ResourcesUtil;
@@ -76,8 +77,10 @@ public class TmxLoader {
 
                     int index = gid - tileSet.getFirstgid();
                     if (index == 0) {
-                        level.getStartPosition().set(object.getX() + 16, object.getY() + 16);
-                        level.getStartPosition().setDirection(Double.parseDouble(object.getProperty("direction", "0")));
+                        Ray ray = new Ray();
+                        ray.set(object.getX() + 16, object.getY() + 16);
+                        ray.setDirection(Double.parseDouble(object.getProperty("direction", "0")));
+                        level.getStartPositions().add(ray);
                     } else {
                         if (index < 0 || index >= indexToObjectName.length) {
                             throw new IllegalStateException();

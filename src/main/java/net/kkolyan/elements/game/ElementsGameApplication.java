@@ -248,13 +248,14 @@ public class ElementsGameApplication extends BaseApplication {
                 String argument = StringUtil.argument(command);
 
                 Level level = TmxLoader.loadTmxLevel(argument, sdlLoader);
+                Iterator<Ray> startPositions = level.getStartPositions().iterator();
 
                 for (Object o: level.getObjects()) {
                     addComponent(o);
                 }
                 for (UniObject p: players) {
                     if (p.is(Locatable.class)) {
-                        p.as(Locatable.class).set(level.getStartPosition());
+                        p.as(Locatable.class).set(startPositions.next());
                     }
                     addComponent(p);
                 }

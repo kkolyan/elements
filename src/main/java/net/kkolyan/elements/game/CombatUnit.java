@@ -30,16 +30,6 @@ public class CombatUnit extends SolidSprite implements TickListener,UniObject {
 
     private double skiddingThreshold = 100;
 
-    private double vehicleTurningRadius;
-
-    public double getVehicleTurningRadius() {
-        return vehicleTurningRadius;
-    }
-
-    public void setVehicleTurningRadius(double vehicleTurningRadius) {
-        this.vehicleTurningRadius = vehicleTurningRadius;
-    }
-
     public void setSkiddingThreshold(double skiddingThreshold) {
         this.skiddingThreshold = skiddingThreshold;
     }
@@ -142,11 +132,6 @@ public class CombatUnit extends SolidSprite implements TickListener,UniObject {
         } else {
             setFrameRate(0);
         }
-
-        if (getFrameRate() == 0) {
-            double a = getAngularVelocity().getValue();
-            setFrameRate(a / ANGULAR_TRACTION_MULTIPLIER);
-        }
     }
 
     public void aimTower(double tickLength, Located target) {
@@ -191,21 +176,16 @@ public class CombatUnit extends SolidSprite implements TickListener,UniObject {
     public void move(double timeDirection) {
 
         Vector impulse = Vector.fromAngle(getDirection(), getTraction() * timeDirection / getMass());
-        getVelocity().transpose(impulse);
+        applySelfSourcedImpulse(impulse);
         setTracksMoving(true);
+    }
+    
+    protected void applySelfSourcedImpulse(Vector impulse) {
+        getVelocity().transpose(impulse);
     }
 
     public void turn(double timeDirection) {
-        if (vehicleTurningRadius > 0) {
-            double rotation = -timeDirection * getVelocity().magnitude() * 2500 / vehicleTurningRadius;
-            if (getVelocity().dotProduct(Vector.fromAngle(getDirection(), 1)) < 0) {
-                rotation = -rotation;
-            }
-            rotate(rotation);
-        } else {
-            getAngularVelocity().add(-timeDirection * getTraction() * ANGULAR_TRACTION_MULTIPLIER / getMass());
-        }
-//        rotate(-getTurnSpeed() * timeDirection);
+        rotate(-getTurnSpeed() * timeDirection);
         setTracksMoving(true);
     }
 
@@ -216,7 +196,11 @@ public class CombatUnit extends SolidSprite implements TickListener,UniObject {
     public static final double ANGULAR_TRACTION_MULTIPLIER = 100;
 
     public double getTimeToStop() {
-        return getAngularVelocity().abs() / (getTraction() * ANGULAR_TRACTION_MULTIPLIER / getMass());
+        return 0;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
     }
 
     @Override
@@ -229,10 +213,14 @@ public class CombatUnit extends SolidSprite implements TickListener,UniObject {
         return type.cast(type);
     }
 
+    protected Drawable getWeaponAsDrawable() {
+        return getWeapon();
+    }
+
     @Override
     public <T> Collection<T> of(Class<T> type) {
         if (type == Drawable.class) {
-            return Arrays.asList(type.cast(this), type.cast(weapon));
+            return Arrays.asList(type.cast(this), type.cast(getWeaponAsDrawable()));
         }
         if (is(type)) {
             return Collections.singleton(type.cast(this));

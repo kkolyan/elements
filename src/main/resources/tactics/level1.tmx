@@ -287,6 +287,21 @@
     <property name="direction" value="90"/>
    </properties>
   </object>
+     <object gid="27" x="2108.49" y="878">
+         <properties>
+             <property name="direction" value="90"/>
+         </properties>
+     </object>
+     <object gid="27" x="2308.49" y="978">
+         <properties>
+             <property name="direction" value="90"/>
+         </properties>
+     </object>
+     <object gid="27" x="2108.49" y="978">
+         <properties>
+             <property name="direction" value="90"/>
+         </properties>
+     </object>
   <object gid="28" x="1368" y="1064"/>
   <object gid="28" x="1612" y="1124"/>
   <object gid="28" x="1608" y="1244"/>

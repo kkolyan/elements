@@ -17,7 +17,9 @@ public class FixAlpha {
     public static void main(String[] args) throws Exception {
         FixAlpha.fixAlpha("D:\\dev\\elements\\src\\main\\resources\\tactics\\marine.28x28.png");
         FixAlpha.fixAlpha("D:\\dev\\elements\\src\\main\\resources\\tactics\\marine_fire.50x28.o14x14.png");
-        FixAlpha.fixAlpha("D:\\dev\\elements\\src\\main\\resources\\tactics\\cv_move.64x34.o24x17.png");
+        FixAlpha.fixAlpha("D:\\dev\\elements\\src\\main\\resources\\tactics\\cv_move.64x34.o32x17.png");
+        FixAlpha.fixAlpha("D:\\dev\\elements\\src\\main\\resources\\tactics\\moto.64x64.png");
+        FixAlpha.fixAlpha("D:\\dev\\elements\\src\\main\\resources\\tactics\\moto_empty.64x64.png");
     }
 
     public static void fixAlpha(String file) throws IOException {

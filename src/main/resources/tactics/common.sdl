@@ -32,15 +32,15 @@ Tile = Sprite
 
 
 playerTank2 = new net.kkolyan.elements.game.GtaStyleTankController()
-    object = new net.kkolyan.elements.game.CombatUnit()
+    object = new net.kkolyan.elements.game.Tank()
         imageSetId = "game/fuselage.64x64.png"
         movingFrameRate = 0.25
-        mass = 1000
-        traction = 7000
+        mass = 50000
+        traction = 300000
         turnSpeed = 120
         constantFrictionFactor = 5
         lateralFrictionFactor = 1
-        airFrictionFactor = 0.02
+        airFrictionFactor = 6
         skiddingThreshold = 10
         boundingRadius = 32
         reloadTime = 300
@@ -51,24 +51,50 @@ playerTank2 = new net.kkolyan.elements.game.GtaStyleTankController()
         towerRotationRate = 360
 
 playerCv = new net.kkolyan.elements.game.GtaStyleTankController()
-    object = new net.kkolyan.elements.game.CombatUnit()
-        imageSetId = "tactics/cv_move.64x34.o24x17.png"
+    object = new net.kkolyan.elements.game.Car()
+        imageSetId = "tactics/cv_move.64x34.o32x17.png"
         movingFrameRate = 0.25
+        maxRearVelocity = 2
         mass = 5000
         traction = 23000
         turnSpeed = 120
-        vehicleTurningRadius = 100
+        vehicleTurningRadius = 40
         constantFrictionFactor = 1
-        lateralFrictionFactor = 0.5
+        lateralFrictionFactor = 0.1
         airFrictionFactor = 1
         skiddingThreshold = 10
-        boundingRadius = 32
+        boundingRadius = 27
         reloadTime = 100
         weapon = new net.kkolyan.elements.game.Weapon()
             waitImageSetId = "tactics/marine.28x28.png"
             shotImageSetId = "tactics/marine_fire.50x28.o14x14.png"
-        cannonPower = 900
+        cannonPower = 100
         towerRotationRate = 360
+        maxSteeringTime = 600
+
+playerMoto = new net.kkolyan.elements.game.GtaStyleTankController()
+    object = new net.kkolyan.elements.game.Moto()
+        movingImageSetId = "tactics/moto.64x64.png"
+        imageSetId = "tactics/moto_empty.64x64.png"
+        maxRearVelocity = 1
+        maxShotVelocity = 1
+        movingFrameRate = 0.25
+        mass = 500
+        traction = 12000
+        turnSpeed = 120
+        vehicleTurningRadius = 80
+        constantFrictionFactor = 1
+        lateralFrictionFactor = 0.1
+        airFrictionFactor = 0.85
+        skiddingThreshold = 10
+        boundingRadius = 16
+        reloadTime = 100
+        weapon = new net.kkolyan.elements.game.Weapon()
+            waitImageSetId = "tactics/marine.28x28.png"
+            shotImageSetId = "tactics/marine_fire.50x28.o14x14.png"
+        cannonPower = 3
+        towerRotationRate = 360
+        maxSteeringTime = 600
 
 playerMarine = new net.kkolyan.elements.game.CrimsonLandStyleTankController()
     object = new net.kkolyan.elements.game.CombatUnit()
@@ -86,8 +112,9 @@ playerMarine = new net.kkolyan.elements.game.CrimsonLandStyleTankController()
 
 playerTank = List
     playerCv
+    playerMoto
     playerMarine
-#    playerTank2
+    playerTank2
 
 
 _Fly = NPC

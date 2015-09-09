@@ -2,6 +2,7 @@ package net.kkolyan.elements.tactics;
 
 import net.kkolyan.elements.engine.core.Application;
 import net.kkolyan.elements.engine.core.slick2d.Slick2dLauncher;
+import net.kkolyan.elements.engine.utils.FixAlpha;
 import net.kkolyan.elements.game.ElementsGameApplication;
 
 /**
@@ -9,7 +10,9 @@ import net.kkolyan.elements.game.ElementsGameApplication;
  */
 public class TacticsGame {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        FixAlpha.main(args);
 
         Application application = new ElementsGameApplication();
 

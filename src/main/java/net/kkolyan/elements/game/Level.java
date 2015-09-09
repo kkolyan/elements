@@ -9,22 +9,14 @@ import java.util.Collection;
  * @author nplekhanov
  */
 public class Level {
-    private Ray startPosition = new Ray();
+    private Collection<Ray> startPositions = new ArrayList<>();
     private Collection<Object> objects = new ArrayList<>();
 
-    public Ray getStartPosition() {
-        return startPosition;
+    public Collection<Ray> getStartPositions() {
+        return startPositions;
     }
 
     public Collection<Object> getObjects() {
         return objects;
-    }
-
-    public void setObjects(Collection<Object> objects) {
-        this.objects = objects;
-    }
-
-    public void setStartPosition(Ray startPosition) {
-        this.startPosition = startPosition;
     }
 }

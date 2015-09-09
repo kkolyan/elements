@@ -43,7 +43,7 @@ public class CompoundUniObject implements UniObject {
                 }
             }
 
-            lookupCache.put(type, value);
+//            lookupCache.put(type, value);
         }
         return value;
     }
