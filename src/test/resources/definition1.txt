@@ -1,0 +1,10 @@
+A great root
+    x = 5
+    y = 6
+    parent = B
+        x = 12
+        y = 17
+    brother = C
+        x = -7
+        y = 56
+    name = Car

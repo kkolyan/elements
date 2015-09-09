@@ -1,0 +1,43 @@
+Can use one weapon and one or two elements
+
+fire
+    - makes faster
+    - ignites action on other objects
+
+electricity
+    - instant impact delivery
+    - gives energy
+    - interrupts action
+
+cold
+    - takes energy
+    - makes slower
+
+water
+    - flows into small gaps
+    - dissolves
+    - changes form
+    - hurt by cold
+    - shark/dolphin
+
+metal
+    - likes electricity
+    - solid
+    - hurtful
+    - sword/hammer
+
+wood
+    - likes water
+    - hurt my fire
+    - powerful slowness
+
+
+weapons:
+    - sword
+    - bow
+    - hammer
+
+
+rubber
+
+magnet

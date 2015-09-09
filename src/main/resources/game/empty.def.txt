@@ -1,0 +1,18 @@
+new net.kkolyan.elements.game.ElementsGameController
+
+    playerTank = new net.kkolyan.elements.game.Tank
+        imageSetId = game/fuselage.64x64.png
+        frameRate = 0.25
+        x = 50
+        y = 250
+        direction = 30
+        mass = 1000
+        traction = 9000
+        turnSpeed = 120
+        constantFrictionFactor = 5
+        lateralFrictionFactor = 15
+        boundingRadius = 32
+        scale = 0
+        weapon = new net.kkolyan.elements.game.Tower
+            waitImageSetId = game/tower.64x64.o24x32.png
+            shotImageSetId = game/tower_fire.96x64.o24x32.png

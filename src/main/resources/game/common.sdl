@@ -1,0 +1,97 @@
+List = new java.util.ArrayList()
+Level = new net.kkolyan.elements.game.Level()
+Ray = new net.kkolyan.elements.engine.core.templates.Ray()
+SolidSprite = new net.kkolyan.elements.engine.core.templates.SolidSprite()
+Sprite = new net.kkolyan.elements.engine.core.templates.Sprite()
+NPC = new net.kkolyan.elements.game.NPC()
+Border = new net.kkolyan.elements.engine.core.physics.Border()
+Vector = new net.kkolyan.elements.engine.core.templates.Vector()
+
+_Emoticon = SolidSprite
+    scale = size
+    mass = 100 * size * size * size
+    boundingRadius = 8 * size * size
+    imageSetId = "game/acute.27x24.png"
+    airFrictionFactor = 0.006
+    constantFrictionFactor = 6
+
+EmoticonLarge = _Emoticon
+    @size = 2
+
+EmoticonNormal = _Emoticon
+    @size = 1.5
+
+EmoticonSmall = _Emoticon
+    @size = 1
+
+
+Tile = Sprite
+    depth = 1000
+    frameRate = 0
+    frameIndex = 0
+
+
+playerTank2 = new net.kkolyan.elements.game.GtaStyleTankController()
+    object = new net.kkolyan.elements.game.Tank()
+        imageSetId = "game/fuselage.64x64.png"
+        movingFrameRate = 0.25
+        mass = 1000
+        traction = 7000
+        turnSpeed = 120
+        constantFrictionFactor = 5
+        lateralFrictionFactor = 1
+        airFrictionFactor = 0.02
+        skiddingThreshold = 10
+        boundingRadius = 32
+        reloadTime = 300
+        tower = new net.kkolyan.elements.game.Tower()
+            waitImageSetId = "game/tower.64x64.o24x32.png"
+            shotImageSetId = "game/tower_fire.96x64.o24x32.png"
+        cannonPower = 900
+        towerRotationRate = 360
+
+# наиболее близкие настройки к реальному насекомому  - легкая, сильная и с высокими коэффициентами трения
+playerFly = new net.kkolyan.elements.game.DiabloStypeTankController()
+    object = new net.kkolyan.elements.game.Tank()
+        imageSetId = "game/fly/fly-low-move.256x256.png"
+        movingFrameRate = 1
+        mass = 500
+        traction = 10000
+        turnSpeed = 220
+        constantFrictionFactor = 15
+        lateralFrictionFactor = 0
+        airFrictionFactor = 0.5
+        boundingRadius = 32
+        reloadTime = 160
+        tower = new net.kkolyan.elements.game.Tower()
+            waitImageSetId = "game/fly/fly-high-await.256x256.png"
+            shotImageSetId = "game/fly/fly-high-attack.256x256.png"
+        cannonPower = 500
+        scale = 0.6 * 1.25
+        towerRotationLimit = 45
+
+playerTank = List
+    playerFly
+    playerTank2
+
+
+_Fly = NPC
+    controllable = playerFly
+#    controllable = SolidSprite
+#        scale = size * 0.6
+#        direction = 30
+#        mass = 100 * size * size * size
+#        boundingRadius = 32 * size * size
+#        imageSetId = "game/fly-walk.256x128.png"
+#        airFrictionFactor = 0.006
+#        constantFrictionFactor = 6
+
+FlyNormal = _Fly
+    @size = 1
+
+FlyLarge = _Fly
+    @size = 1.25
+
+status = new net.kkolyan.elements.game.Status()
+    x = 30
+    y = 60

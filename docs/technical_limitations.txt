@@ -1,0 +1,1 @@
+solid body can walk through borders in the places of sharp concaves- don't use concaves with angle less than 90 degrees!

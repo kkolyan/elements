@@ -1,0 +1,112 @@
+List = new java.util.ArrayList()
+Level = new net.kkolyan.elements.game.Level()
+Ray = new net.kkolyan.elements.engine.core.templates.Ray()
+SolidSprite = new net.kkolyan.elements.engine.core.templates.SolidSprite()
+Sprite = new net.kkolyan.elements.engine.core.templates.Sprite()
+NPC = new net.kkolyan.elements.game.NPC()
+Border = new net.kkolyan.elements.engine.core.physics.Border()
+Vector = new net.kkolyan.elements.engine.core.templates.Vector()
+
+_Emoticon = SolidSprite
+    scale = size
+    mass = 100 * size * size * size
+    boundingRadius = 8 * size * size
+    imageSetId = "game/acute.27x24.png"
+    airFrictionFactor = 0.006
+    constantFrictionFactor = 6
+
+EmoticonLarge = _Emoticon
+    @size = 2
+
+EmoticonNormal = _Emoticon
+    @size = 1.5
+
+EmoticonSmall = _Emoticon
+    @size = 1
+
+
+Tile = Sprite
+    depth = 1000
+    frameRate = 0
+    frameIndex = 0
+
+
+playerTank2 = new net.kkolyan.elements.game.GtaStyleTankController()
+    object = new net.kkolyan.elements.game.CombatUnit()
+        imageSetId = "game/fuselage.64x64.png"
+        movingFrameRate = 0.25
+        mass = 1000
+        traction = 7000
+        turnSpeed = 120
+        constantFrictionFactor = 5
+        lateralFrictionFactor = 1
+        airFrictionFactor = 0.02
+        skiddingThreshold = 10
+        boundingRadius = 32
+        reloadTime = 300
+        weapon = new net.kkolyan.elements.game.Weapon()
+            waitImageSetId = "game/tower.64x64.o24x32.png"
+            shotImageSetId = "game/tower_fire.96x64.o24x32.png"
+        cannonPower = 900
+        towerRotationRate = 360
+
+playerCv = new net.kkolyan.elements.game.GtaStyleTankController()
+    object = new net.kkolyan.elements.game.CombatUnit()
+        imageSetId = "tactics/cv_move.64x34.o24x17.png"
+        movingFrameRate = 0.25
+        mass = 5000
+        traction = 23000
+        turnSpeed = 120
+        vehicleTurningRadius = 100
+        constantFrictionFactor = 1
+        lateralFrictionFactor = 0.5
+        airFrictionFactor = 1
+        skiddingThreshold = 10
+        boundingRadius = 32
+        reloadTime = 100
+        weapon = new net.kkolyan.elements.game.Weapon()
+            waitImageSetId = "tactics/marine.28x28.png"
+            shotImageSetId = "tactics/marine_fire.50x28.o14x14.png"
+        cannonPower = 900
+        towerRotationRate = 360
+
+playerMarine = new net.kkolyan.elements.game.CrimsonLandStyleTankController()
+    object = new net.kkolyan.elements.game.CombatUnit()
+        movingFrameRate = 0.25
+        mass = 100
+        traction = 700
+        constantFrictionFactor = 5
+        airFrictionFactor = 1
+        boundingRadius = 8
+        reloadTime = 100
+        weapon = new net.kkolyan.elements.game.Weapon()
+            waitImageSetId = "tactics/marine.28x28.png"
+            shotImageSetId = "tactics/marine_fire.50x28.o14x14.png"
+        cannonPower = 3
+
+playerTank = List
+    playerCv
+    playerMarine
+#    playerTank2
+
+
+_Fly = NPC
+    controllable = playerTank2
+#    controllable = SolidSprite
+#        scale = size * 0.6
+#        direction = 30
+#        mass = 100 * size * size * size
+#        boundingRadius = 32 * size * size
+#        imageSetId = "game/fly-walk.256x128.png"
+#        airFrictionFactor = 0.006
+#        constantFrictionFactor = 6
+
+FlyNormal = _Fly
+    @size = 1
+
+FlyLarge = _Fly
+    @size = 1.25
+
+status = new net.kkolyan.elements.game.Status()
+    x = 30
+    y = 60

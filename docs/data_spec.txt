@@ -1,0 +1,25 @@
+Maps
+    Tiles
+    Borders
+    Player entry points
+    PCs
+    Decorations
+    Items
+    Triggers
+    Custom area markers (for triggers)
+    Physic effects markers
+
+PC prototypes
+    Entity
+    Behavior
+
+Decoration prototypes
+    Entity
+
+Entity prototypes
+    Java Class
+    Parameters
+
+Behavior prototypes
+    Java Class
+    Parameters
