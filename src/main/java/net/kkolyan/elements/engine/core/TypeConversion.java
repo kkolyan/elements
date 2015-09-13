@@ -47,6 +47,9 @@ public class TypeConversion {
             if (type == float.class) return n.floatValue();
             if (type == double.class) return n.doubleValue();
         }
+        if (type.isEnum()) {
+            return Enum.valueOf((Class)type, (String) value);
+        }
         throw new IllegalStateException("can't convert "+value+" to "+type);
     }
 

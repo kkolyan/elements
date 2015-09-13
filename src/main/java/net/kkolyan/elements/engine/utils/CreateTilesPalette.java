@@ -14,10 +14,10 @@ import java.io.IOException;
  */
 public class CreateTilesPalette {
     public static void main(String[] args) throws IOException {
-        createPalette("game/dirt.128x128.png", "C:\\Games\\Герои 3 Дыхание Смерти\\Data\\dirt_palette.png");
+        createPalette("tactics/grdrt.128x128.png", "D:\\dev\\elements.git\\src\\main\\resources\\tactics\\grdrt_palette.128x128.png", false);
     }
 
-    public static void createPalette(String imageSetId, String targetFile) throws IOException {
+    public static void createPalette(String imageSetId, String targetFile, boolean markup) throws IOException {
         ResourceManager resourceManager = new ResourceManager();
         ImageSet imageSet = resourceManager.getImageSet(imageSetId);
         int width = (int) Math.ceil(Math.sqrt(imageSet.getImageCount()));
@@ -36,8 +36,10 @@ public class CreateTilesPalette {
             canvas.setColor(Color.white);
             canvas.setFont(new Font("Courier", Font.BOLD, 20));
             canvas.drawImage(imageSet.getFrame(i), x, y, null);
-            canvas.drawRect(x, y, w, h);
-            canvas.drawString(String.valueOf((char)('a' + i)), x + 10, y + 20);
+            if (markup) {
+                canvas.drawRect(x, y, w, h);
+                canvas.drawString(String.valueOf((char)('a' + i)), x + 10, y + 20);
+            }
         }
         canvas.dispose();
         ImageIO.write(palette, "png", new File(targetFile));

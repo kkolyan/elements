@@ -9,11 +9,11 @@ import java.util.Collection;
  * @author nplekhanov
  */
 public class Level {
-    private Collection<Ray> startPositions = new ArrayList<>();
+    private Collection<Object> players = new ArrayList<>();
     private Collection<Object> objects = new ArrayList<>();
 
-    public Collection<Ray> getStartPositions() {
-        return startPositions;
+    public Collection<Object> getPlayers() {
+        return players;
     }
 
     public Collection<Object> getObjects() {

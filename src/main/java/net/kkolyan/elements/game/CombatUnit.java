@@ -6,6 +6,8 @@ import net.kkolyan.elements.engine.core.Shot;
 import net.kkolyan.elements.engine.core.graphics.Drawable;
 import net.kkolyan.elements.engine.core.templates.SolidSprite;
 import net.kkolyan.elements.engine.core.templates.Vector;
+import net.kkolyan.elements.tactics.SurfaceType;
+import net.kkolyan.elements.tactics.SurfaceTypeAware;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,7 +16,7 @@ import java.util.Collections;
 /**
  * @author nplekhanov
  */
-public class CombatUnit extends SolidSprite implements TickListener,UniObject {
+public class CombatUnit extends SolidSprite implements TickListener,UniObject, SurfaceTypeAware {
     private Weapon weapon;
     private double traction;
     private double turnSpeed;
@@ -29,6 +31,7 @@ public class CombatUnit extends SolidSprite implements TickListener,UniObject {
     private double towerRotationLimit = 360;
 
     private double skiddingThreshold = 100;
+    private SurfaceType surfaceType;
 
     public void setSkiddingThreshold(double skiddingThreshold) {
         this.skiddingThreshold = skiddingThreshold;
@@ -226,5 +229,14 @@ public class CombatUnit extends SolidSprite implements TickListener,UniObject {
             return Collections.singleton(type.cast(this));
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public void setSurfaceType(SurfaceType surfaceType) {
+        this.surfaceType = surfaceType;
+    }
+
+    public SurfaceType getSurfaceType() {
+        return surfaceType;
     }
 }

@@ -11,14 +11,12 @@ import net.kkolyan.elements.engine.utils.ResourcesUtil;
 import net.kkolyan.elements.game.Level;
 import net.kkolyan.elements.game.UniObject;
 import net.kkolyan.elements.game.tmx.model.*;
+import net.kkolyan.elements.tactics.Surface;
 import org.simpleframework.xml.core.Persister;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * https://github.com/bjorn/tiled/wiki/TMX-Map-Format
@@ -26,11 +24,9 @@ import java.util.List;
  * @author nplekhanov
  */
 public class TmxLoader {
-    private static String[] indexToObjectName = {
-            null, "EmoticonSmall", "EmoticonNormal", "EmoticonLarge", "FlyNormal", "FlyLarge"
-    };
 
     public static Level loadTmxLevel(String resource, SdlLoader sdlLoader) {
+        Map<String,List<String>> tmxMapping = (Map) sdlLoader.createObject("tmxMapping");
         Level level = new Level();
 
         String parent = new File(resource).getParent();
@@ -45,11 +41,11 @@ public class TmxLoader {
         if (map.getLayers().size() != 1 || !map.getLayers().get(0).getName().equals("Tiles")) {
             throw new IllegalStateException();
         }
+        List<String> tileNames = tmxMapping.get("Tiles");
         TmxLayer tilesLayer = map.getLayers().get(0);
         int[][] tiles = tilesLayer.getData().getGidMatrix();
         for (int x = 0; x < tilesLayer.getWidth(); x ++) {
             for (int y = 0; y < tilesLayer.getHeight(); y ++) {
-                Sprite sprite = new Sprite();
                 int gid = tiles[y][x];
                 if (gid == 0) {
                     continue;
@@ -59,39 +55,38 @@ public class TmxLoader {
                 if (imageIndex < 0) {
                     throw new IllegalStateException();
                 }
-                sprite.setImageSetId(new File(parent, tileSet.getImage().getSource()).toString()+"#"+(imageIndex));
-                sprite.setDepth(100000);
-                sprite.setX(x * map.getTilewidth() + map.getTilewidth()/2);
-                sprite.setY(y * map.getTileheight() + map.getTileheight()/2);
-                level.getObjects().add(sprite);
+                String tileName = tileNames.get(gid);
+                Surface tile = (Surface) sdlLoader.createObject(tileName);
+                tile.setImageSetId(new File(parent, tileSet.getImage().getSource()).toString() + "#" + (imageIndex));
+                tile.setX(x * map.getTilewidth() + map.getTilewidth()/2);
+                tile.setY(y * map.getTileheight() + map.getTileheight()/2);
+                level.getObjects().add(tile);
             }
         }
         for (TmxObjectGroup objectGroup: map.getObjectGroups()) {
             if (objectGroup.getObjects() == null) {
                 continue;
             }
+            List<String> objectNames = tmxMapping.get(objectGroup.getName());
             for (TmxObject object: objectGroup.getObjects()) {
                 Integer gid = object.getGid();
                 if (gid != null) {
                     TmxTileSet tileSet = map.getTileSetByGid(gid);
 
                     int index = gid - tileSet.getFirstgid();
-                    if (index == 0) {
-                        Ray ray = new Ray();
-                        ray.set(object.getX() + 16, object.getY() + 16);
-                        ray.setDirection(Double.parseDouble(object.getProperty("direction", "0")));
-                        level.getStartPositions().add(ray);
-                    } else {
-                        if (index < 0 || index >= indexToObjectName.length) {
-                            throw new IllegalStateException();
-                        }
-                        String objectName = indexToObjectName[index];
+                    if (index < 0 || index >= objectNames.size()) {
+                        throw new IllegalStateException();
+                    }
+                    String objectName = objectNames.get(index);
 
-                        Object o = sdlLoader.createObject(objectName);
-                        Locatable locatable = optionalLocatable(o);
-                        if (locatable != null) {
-                            locatable.set(new Vector(object.getX() + 16, object.getY() + 16));
-                        }
+                    Object o = sdlLoader.createObject(objectName);
+                    Locatable locatable = optionalLocatable(o);
+                    if (locatable != null) {
+                        locatable.set(new Vector(object.getX() + 16, object.getY() + 16));
+                    }
+                    if (objectGroup.getName().equals("PlayerUnits")) {
+                        level.getPlayers().add(o);
+                    } else {
                         level.getObjects().add(o);
                     }
                 } else {

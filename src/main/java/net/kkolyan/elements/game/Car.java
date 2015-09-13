@@ -2,6 +2,7 @@ package net.kkolyan.elements.game;
 
 import net.kkolyan.elements.engine.core.ControllerContext;
 import net.kkolyan.elements.engine.core.templates.Vector;
+import net.kkolyan.elements.tactics.SurfaceType;
 
 /**
  * @author nplekhanov
@@ -60,6 +61,9 @@ public class Car extends CombatUnit {
 
     @Override
     protected void applySelfSourcedImpulse(Vector impulse) {
+        if (getSurfaceType() == SurfaceType.GRASS) {
+            impulse.multiply(0.25);
+        }
         Vector direction = Vector.fromAngle(getDirection(), 1.0);
 
         if (impulse.dotProduct(direction) < 0) {

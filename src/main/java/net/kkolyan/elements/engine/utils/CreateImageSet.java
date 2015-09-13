@@ -14,9 +14,9 @@ import java.util.List;
 public class CreateImageSet {
     public static void main(String[] args) throws IOException {
         createImageSet(
-                "C:\\Games\\Герои 3 Дыхание Смерти\\Data",
+                "C:\\Games\\mm8buka\\Data\\grdrt",
                 ".*\\.bmp",
-                "D:\\dev\\elements\\src\\main\\resources\\demo2\\dirt");
+                "D:\\dev\\elements.git\\src\\main\\resources\\tactics\\grdrt");
     }
 
 

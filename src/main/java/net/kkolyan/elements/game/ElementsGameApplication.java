@@ -20,6 +20,9 @@ import net.kkolyan.elements.engine.utils.Function;
 import net.kkolyan.elements.engine.utils.ObjectProvider;
 import net.kkolyan.elements.engine.utils.StringUtil;
 import net.kkolyan.elements.game.tmx.TmxLoader;
+import net.kkolyan.elements.tactics.Surface;
+import net.kkolyan.elements.tactics.SurfaceMap;
+import net.kkolyan.elements.tactics.SurfaceTypeAware;
 
 import java.util.*;
 
@@ -31,6 +34,8 @@ public class ElementsGameApplication extends BaseApplication {
     private Vector viewPortCenter = new Vector();
     private Collection<Text> texts = new ArrayList<>();
     private Physics physics = new Physics();
+
+    private SurfaceMap surfaceMap = new SurfaceMap();
 
     private List<Drawable> visibleSprites = new ArrayList<>();
 
@@ -62,6 +67,10 @@ public class ElementsGameApplication extends BaseApplication {
         if (component instanceof UniObject) {
             UniObject o = (UniObject) component;
 
+            if (o.is(Surface.class)) {
+                surfaceMap.addSurface(o.as(Surface.class));
+                matches ++;
+            }
             if (o.is(Drawable.class)) {
                 spritesField.add(o);
                 matches ++;
@@ -248,15 +257,13 @@ public class ElementsGameApplication extends BaseApplication {
                 String argument = StringUtil.argument(command);
 
                 Level level = TmxLoader.loadTmxLevel(argument, sdlLoader);
-                Iterator<Ray> startPositions = level.getStartPositions().iterator();
 
                 for (Object o: level.getObjects()) {
                     addComponent(o);
                 }
-                for (UniObject p: players) {
-                    if (p.is(Locatable.class)) {
-                        p.as(Locatable.class).set(startPositions.next());
-                    }
+                players = new ArrayList<>();
+                for (Object p : level.getPlayers()) {
+                    players.add((UniObject) p);
                     addComponent(p);
                 }
             }
@@ -288,6 +295,11 @@ public class ElementsGameApplication extends BaseApplication {
 
         Collection<UniObject> bodies = this.bodiesField.lookup(getViewPortCenter(), new Vector(context.getScreenSize()).getMultiplied(2 * getViewPortScale()));
         Status.addLine("Physic bodies: "+bodies.size());
+        for (UniObject body: bodies) {
+            if (body.is(SurfaceTypeAware.class)) {
+                body.as(SurfaceTypeAware.class).setSurfaceType(surfaceMap.getSurfaceType(body.as(Located.class)));
+            }
+        }
         physics.tick(context.getTickLength(), UniObjects.projectRequiredComponents(bodies, Body.class), borders);
 
 

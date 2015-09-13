@@ -45,7 +45,11 @@ public class HierarchicalNodesConstructor implements Constructor {
 
         for (Map.Entry<String, Constructor> property: properties.entrySet()) {
             Object value = property.getValue().create(mergedContext);
-            Reflection.setProperty(o, property.getKey(), value);
+            if (o instanceof Map) {
+                ((Map)o).put(property.getKey(), value);
+            } else {
+                Reflection.setProperty(o, property.getKey(), value);
+            }
         }
         for (Constructor entry: entries) {
             Object value = entry.create(mergedContext);

@@ -7,6 +7,13 @@ NPC = new net.kkolyan.elements.game.NPC()
 Border = new net.kkolyan.elements.engine.core.physics.Border()
 Vector = new net.kkolyan.elements.engine.core.templates.Vector()
 
+GRASS = new net.kkolyan.elements.tactics.Surface()
+    type = "GRASS"
+    depth = 100000
+ROAD = new net.kkolyan.elements.tactics.Surface()
+    type = "ROAD"
+    depth = 100000
+
 _Emoticon = SolidSprite
     scale = size
     mass = 100 * size * size * size
@@ -31,7 +38,7 @@ Tile = Sprite
     frameIndex = 0
 
 
-playerTank2 = new net.kkolyan.elements.game.GtaStyleTankController()
+playerTank = new net.kkolyan.elements.game.GtaStyleTankController()
     object = new net.kkolyan.elements.game.Tank()
         imageSetId = "game/fuselage.64x64.png"
         movingFrameRate = 0.25
@@ -110,15 +117,39 @@ playerMarine = new net.kkolyan.elements.game.CrimsonLandStyleTankController()
             shotImageSetId = "tactics/marine_fire.50x28.o14x14.png"
         cannonPower = 3
 
-playerTank = List
+playerUnits = List
     playerCv
     playerMoto
     playerMarine
     playerTank2
 
+tmxMapping = new java.util.HashMap()
+    Tiles = List
+        "GRASS"
+        "GRASS"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+        "ROAD"
+    PlayerUnits = List
+        "playerMarine"
+        "playerMoto"
+        "playerCv"
+        "playerTank"
+
 
 _Fly = NPC
-    controllable = playerTank2
+    controllable = playerTank
 #    controllable = SolidSprite
 #        scale = size * 0.6
 #        direction = 30
